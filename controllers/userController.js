@@ -66,10 +66,11 @@ module.exports = {
     addFriend(req, res){
         User.findOne({ _id: req.params.userId,})
             .then((user) => {
+                console.log(user)
                 if(!user){
                     res.status(404).json({ message: 'user not found'})
                 }else{
-                    user.update(
+                    return user.update(
                         { $addToSet: { friends: req.params.friendId } },
                         { runValidators: true, new: true }
                     )
