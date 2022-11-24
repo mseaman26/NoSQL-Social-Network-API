@@ -51,7 +51,7 @@ module.exports = {
         User.findOneAndDelete({ _id: req.params.userId})
             .then((user) => {
                 if(!user){
-                    res.status(404).json({ message: 'cannot fine user'})
+                    res.status(404).json({ message: 'cannot find user'})
                 }else{
                     Thought.deleteMany({ _id: {
                         $in:user.thoughts
@@ -59,6 +59,24 @@ module.exports = {
                 }
             })
             .then(() => res.json({ message: 'user and all associated thoughts have been deleted!'}))
-            .catch(() => res.status(500).json(err))
+            .catch((err) => res.status(500).json(err))
+    },
+
+    //add friend to user's friend list
+    addFriend(req, res){
+        User.findOne({ _id: req.params.userId,})
+            .then((user) => {
+                if(!user){
+                    res.status(404).json({ message: 'user not found'})
+                }else{
+                    user.update(
+                        { $addToSet: { friends: req.params.friendId } },
+                        { runValidators: true, new: true }
+                    )
+                   
+                }
+            })
+            .then(() => res.json({ message: 'friend successfully added to friend list!'}))
+            .catch((err) => res.status(500).json(err))
     }
 }
