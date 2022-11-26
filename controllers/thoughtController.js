@@ -12,6 +12,22 @@ module.exports = {
         })
     },
 
+    //get thought by id
+    getThoughtById(req, res) {
+        Thought.findById(req.params.thoughtId)
+        .then((thought) => {
+            console.log(req.params.thoughtId)
+            if(!thought){
+                res.status(404).json('sorry that thought cannot be found')
+            }else{
+                res.status(200).json(thought)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+    },
     //create new thought TODO: still not adding to array
     createThought(req, res) {
         Thought.create(req.body)
@@ -27,8 +43,9 @@ module.exports = {
                 // { runValidators: true, new: true }
                 
                 )
-                res.json(thought)
-            }) 
+                
+            })
+            .then(() => res.json({message: 'thought has been created and added'})) 
             .catch((err) => {
                 console.log
                 res.status(500).json(err)}) 
