@@ -2,11 +2,9 @@ const { User, Thought } = require('../models');
 
 module.exports = {
 
-    //create new thought
+    //create new thought TODO: still not adding to array
     createThought(req, res) {
         Thought.create(req.body)
-        
-            
             .then((thought) =>  {
                 console.log(thought._id)
                 User.findOneAndUpdate(
@@ -25,6 +23,22 @@ module.exports = {
             .catch((err) => {
                 console.log
                 res.status(500).json(err)}) 
-        } 
+        },
     
+        //delete thought
+    deleteThought (req, res){
+        Thought.findByIdAndDelete({_id: req.body._id})
+            .then((thought) => {
+                if(!thought){
+                    res.status(404).json({ message: 'cannot find thought'})
+                }else{
+                    //TODO:
+                }
+            })
+            .then(() => res.json({ message: 'thought has been deleted'}))
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    }
 }
