@@ -19,6 +19,13 @@ const reactionSchema = new Schema ({
         default: Date.now,
         //TODO: figure out time formatting on query
     },
-})
+},
+{
+    toJSON: {
+        virtuals: true,
+        getters: true
+    }
+}
+)
 
 module.exports = reactionSchema

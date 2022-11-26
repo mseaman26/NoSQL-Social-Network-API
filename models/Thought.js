@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const reactionSchema = require('./Reaction')
+const { format_time, format_date } = require('../utils/dateTime')
 
 const thoughtSchema = new Schema({
     thoughtText: {
@@ -11,7 +12,7 @@ const thoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        //TODO: figure out time formatting on query
+        get: (val) => format_date(val)
     },
     username: {
         type: String,
@@ -23,6 +24,7 @@ const thoughtSchema = new Schema({
 {
     toJSON:{
         virtuals: true,
+        getters: true,
     }
 
 })
