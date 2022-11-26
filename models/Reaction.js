@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const { format_time, format_date } = require('../utils/dateTime')
 
 const reactionSchema = new Schema ({
     reactionID: {
@@ -17,8 +18,8 @@ const reactionSchema = new Schema ({
     createdAt: {
         type: Date,
         default: Date.now,
-        //TODO: figure out time formatting on query
-    },
+        get: (val) => format_date(val)
+    }
 },
 {
     toJSON: {
