@@ -66,17 +66,16 @@ module.exports = {
         },
     
    
-        //delete thought
+        //delete thought by id
     deleteThought (req, res){
         let username
         Thought.findByIdAndDelete({_id: req.body._id})
             .then((thought) => {
                 
                 if(!thought){
-                    //TODO: uncomment this code when thought array and thought data match
-                    // res.status(404).json({ message: 'cannot find thought'})
+                    res.status(404).json({ message: 'cannot find thought'})
                 }else{
-                    //TODO:
+
                     username = thought.username
                     console.log(username)
                 }
