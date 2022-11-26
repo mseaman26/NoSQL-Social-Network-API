@@ -3,14 +3,32 @@ const { User, Thought } = require('../models');
 module.exports = {
     //get all users
     getUsers(req, res){
-        User.find()
+        User.find({})
+        .populate({
+            path: 'thoughts',
+            select: '-__v'
+        })
+        .populate({
+            path: 'friends',
+            select: '-__v',
+          })
         .then((users) => res.json(users))
-        .catch((err) => res.status(500).json(err))
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json(err)
+        })
     },
     // get single user
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId})
-        .select('-__v')
+        .populate({
+            path: 'thoughts',
+            select: '-__v'
+        })
+        .populate({
+            path: 'friends',
+            select: '-__v',
+          })
         .then((user) => {
             if(!user){
                 res.status(404).json({ message: 'user not found'})
@@ -64,18 +82,17 @@ module.exports = {
 
     //add friend to user's friend list
     addFriend(req, res){
-        User.findOne({ _id: req.params.userId,})
+        User.findOneAndUpdate(
+            { _id: req.params.userId,},
+            { $addToSet: { friends: req.params.friendId } },
+            { runValidators: true, new: true })
             .then((user) => {
                 if(!user){
                     res.status(404).json({ message: 'user not found'})
                 }else{
-                    return user.update(
-                        { $addToSet: { friends: req.params.friendId } },
-                        { runValidators: true, new: true }
-                    ) 
+                    res.json(user)
                 }
             })
-            .then(() => res.json({ message: 'friend successfully added to friend list!'}))
             .catch((err) => res.status(500).json(err))
     },
 
@@ -84,7 +101,7 @@ module.exports = {
         User.findOne({ _id: req.params.userId })
             .then((user) => {
                 if(!user){
-                    res.status(404).json({ message: 'counld not delte: user not found'})
+                    res.status(404).json({ message: 'could not delte: user not found'})
                 }else{
                     return user.update(
                         { $pull: {friends: req.params.friendId}},
