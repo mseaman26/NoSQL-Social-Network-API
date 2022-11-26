@@ -16,7 +16,6 @@ module.exports = {
     getThoughtById(req, res) {
         Thought.findById(req.params.thoughtId)
         .then((thought) => {
-            console.log(req.params.thoughtId)
             if(!thought){
                 res.status(404).json('sorry that thought cannot be found')
             }else{
@@ -28,7 +27,22 @@ module.exports = {
             res.status(500).json(err)
         })
     },
-    //create new thought TODO: still not adding to array
+     //update thought by id
+     updateThoughtById(req, res){
+        Thought.findByIdAndUpdate(req.params.thoughtId,
+            { $set: req.body},
+            { runValidators: true, new: true }
+        )
+        .then((thought) => {
+            if(!thought){
+                res.status(404).json('sorry that thought cannot be found')
+            }else{
+                res.status(200).json(thought)
+            }
+        })
+    },
+
+    //create new thought 
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) =>  {
@@ -51,6 +65,7 @@ module.exports = {
                 res.status(500).json(err)}) 
         },
     
+   
         //delete thought
     deleteThought (req, res){
         let username
