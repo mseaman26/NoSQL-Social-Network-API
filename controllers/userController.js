@@ -4,14 +4,6 @@ module.exports = {
     //get all users
     getUsers(req, res){
         User.find({})
-        // .populate({
-        //     path: 'thoughts',
-        //     select: '-__v'
-        // })
-        // .populate({
-        //     path: 'friends',
-        //     select: '-__v',
-        //   })
         .then((users) => res.json(users))
         .catch((err) => {
             console.log(err)
@@ -66,7 +58,10 @@ module.exports = {
 
     // delete single user
     deleteUser(req, res) {
-        User.findOneAndDelete({ _id: req.params.userId})
+        User.findOneAndDelete(
+            { _id: req.params.userId},
+            {new: true}
+            )
             .then((user) => {
                 if(!user){
                     res.status(404).json({ message: 'cannot find user'})
