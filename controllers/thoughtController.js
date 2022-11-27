@@ -5,6 +5,7 @@ module.exports = {
     //Get all Thoughts
     getAllThoughts(req, res){
         Thought.find()
+        .select('-__v')
         .then((thoughts) => res.json(thoughts))
         .catch((err) => {
             console.log(err)
@@ -54,8 +55,6 @@ module.exports = {
                     thought._id
                 },
                 }
-                // { runValidators: true, new: true }
-                
                 )
                 
             })

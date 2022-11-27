@@ -19,14 +19,15 @@ const reactionSchema = new Schema ({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (val) => format_date(val)
+        get: (val) => format_date(val),
     }
 },
 {
     toJSON: {
         virtuals: true,
         getters: true
-    }
+    },
+    id: false,
 }
 )
 
@@ -53,7 +54,8 @@ const thoughtSchema = new Schema({
     toJSON:{
         virtuals: true,
         getters: true,
-    }
+    },
+    id: false
 
 })
 

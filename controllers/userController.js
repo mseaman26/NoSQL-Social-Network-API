@@ -4,14 +4,14 @@ module.exports = {
     //get all users
     getUsers(req, res){
         User.find({})
-        .populate({
-            path: 'thoughts',
-            select: '-__v'
-        })
-        .populate({
-            path: 'friends',
-            select: '-__v',
-          })
+        // .populate({
+        //     path: 'thoughts',
+        //     select: '-__v'
+        // })
+        // .populate({
+        //     path: 'friends',
+        //     select: '-__v',
+        //   })
         .then((users) => res.json(users))
         .catch((err) => {
             console.log(err)
@@ -101,7 +101,7 @@ module.exports = {
         User.findOne({ _id: req.params.userId })
             .then((user) => {
                 if(!user){
-                    res.status(404).json({ message: 'could not delte: user not found'})
+                    res.status(404).json({ message: 'could not delete: user not found'})
                 }else{
                     return user.update(
                         { $pull: {friends: req.params.friendId}},
