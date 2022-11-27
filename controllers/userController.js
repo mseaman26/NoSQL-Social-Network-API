@@ -60,18 +60,23 @@ module.exports = {
     deleteUser(req, res) {
         User.findOneAndDelete(
             { _id: req.params.userId},
-            {new: true}
             )
             .then((user) => {
                 if(!user){
                     res.status(404).json({ message: 'cannot find user'})
+                    return
                 }else{
-                    Thought.deleteMany({ _id: {
-                        $in:user.thoughts
-                    }})
+                   
                 }
+                console.log(user)
+                return Thought.deleteMany({ _id: {
+                    $in:user.thoughts
+                }})
             })
-            .then(() => res.json({ message: 'user and all associated thoughts have been deleted!'}))
+            
+            .then((user) => {
+                console.log(user)
+                res.json({ message: 'user and all associated thoughts have been deleted!'})})
             .catch((err) => res.status(500).json(err))
     },
 
