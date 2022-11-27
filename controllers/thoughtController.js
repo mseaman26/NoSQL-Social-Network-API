@@ -74,6 +74,7 @@ module.exports = {
                 
                 if(!thought){
                     res.status(404).json({ message: 'cannot find thought'})
+                    return
                 }else{
 
                     username = thought.username
@@ -96,7 +97,7 @@ module.exports = {
             .then(() => res.json({ message: 'thought has been deleted'}))
             .catch((err) => {
                 console.log(err)
-                res.status(500).json(err)
+                res.status(500)
             })
     },
 
@@ -110,6 +111,25 @@ module.exports = {
         .then((thought) => {
             if(!thought){
                 res.status(404).json({message: 'no thought with that id found'})
+            }else{
+                res.status(200).json(thought)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+    },
+    // delete reaction
+    deleteReaction(req, res) {
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            { $pull: {reactions: {reactionId: req.body.reactionId}}},
+            {new: true}
+        )
+        .then((thought) => {
+            if(!thought){
+                res.status(404).json({message: 'no thought with this ID found'})
             }else{
                 res.status(200).json(thought)
             }
