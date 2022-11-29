@@ -65,15 +65,11 @@ module.exports = {
                 if(!user){
                     res.status(404).json({ message: 'cannot find user'})
                     return
-                }else{
-                   
                 }
-                console.log(user)
                 return Thought.deleteMany({ _id: {
                     $in:user.thoughts
                 }})
             })
-            
             .then((user) => {
                 console.log(user)
                 res.json({ message: 'user and all associated thoughts have been deleted!'})})

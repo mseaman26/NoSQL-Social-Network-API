@@ -56,7 +56,6 @@ module.exports = {
                 },
                 }
                 )
-                
             })
             .then(() => res.json({message: 'thought has been created and added'})) 
             .catch((err) => {
@@ -70,14 +69,11 @@ module.exports = {
         let username
         Thought.findByIdAndDelete({_id: req.body._id})
             .then((thought) => {
-                
                 if(!thought){
                     res.status(404).json({ message: 'cannot find thought'})
                     return
                 }else{
-
                     username = thought.username
-                    console.log(username)
                 }
             })
             .then(() => {
