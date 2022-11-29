@@ -2,9 +2,9 @@
 # NoSQL-Social-Network-API
 
   ## Description
-    This project is a back-end for a social media site.  It utilizes MongoDB/Mongoose to create a database and models. Various cotrollers and routes allow the data to be added, retrieved, uptated, and deleted.  This data includes schemas and models for Users, their thoughts (posts), and reactions to those thoughts (comments). All of the routes and their functionality are demonstrated in the video that is linked below. 
+    This project is a back-end for a social media site.  It utilizes MongoDB/Mongoose to create a database and models. Various controllers and routes allow the data to be added, retrieved, updated, and deleted.  This data includes schemas and models for Users, their thoughts (posts), and reactions to those thoughts (comments). All of the routes and their functionality are demonstrated in the video that is linked below (turn on sound to hear my narration). 
 
-    https://youtu.be/OrUoTL_nuFo 
+https://youtu.be/OrUoTL_nuFo 
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -28,14 +28,14 @@
 
   ## Notable Methods Used
   - Creating schemas and models with Mongoose
-  - Creating subdoccument schemas
+  - Creating subdocument schemas
   - Using Mongoose model methods, such as findOneAndUpate, create, and more
   - Using MongoDB methods such as $push, $addToSet, and more
   - Modularizing route functionality into controller files
   - Testing routes with insomnia
 
   ## Code Snippets
-Here is an example of a MongoDB schema.  This particular schema, "userSchema", has a couple notable features.  First off, a function called validateEmail is declared and uses regex to check for a proper email format pattern within a string.  That function is used within the User schema as a validator, to ensure that the "emai" field of the schema is properly filled in by the user. This schema has a "friends" field, which references the corresponding model for "User."  This allows a User to have a list of friends that refer to other Users.  Finaly, we have a virtual function declared near the bottom that returns the total number of friends that a particular user has. 
+Here is an example of a MongoDB schema.  This particular schema, "userSchema", has a couple notable features.  First off, a function called validateEmail is declared before the schema is created. It uses regex to check for a proper email format pattern within a string.  That function is used within the User schema as a validator, to ensure that the "email" field of the schema is properly filled in by the user. This schema has a "friends" field, which references the corresponding model for "User."  This allows a User to have a list of friends that refer to other Users.  Finally, we have a virtual function declared near the bottom that returns the total number of friends that a particular user has. 
 ```javascript
 const validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -116,4 +116,5 @@ If you have any questions about this project, feel free to reach out me at:<br>
 
 
     
+
 
