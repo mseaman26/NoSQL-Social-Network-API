@@ -2,6 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 // const reactionSchema = require('./Reaction')
 const { format_time, format_date } = require('../utils/dateTime')
 
+//reactionSchema will be a subdocument of thoughtSchema and will not have its own corresponding model
 const reactionSchema = new Schema ({
     reactionId: {
         type: Schema.Types.ObjectId,

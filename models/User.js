@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Thought = require('./Thought')
 
+//function that uses regex to check for valid email format.  Will be used in userSchema as a validator
 const validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)

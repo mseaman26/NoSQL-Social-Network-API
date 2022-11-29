@@ -2,7 +2,7 @@
 # NoSQL-Social-Network-API
 
   ## Description
-    This project is a back-end for a social media site.  It utilizes MongoDB/Mongoose to create a database and models. Various controllers and routes allow the data to be added, retrieved, updated, and deleted.  This data includes schemas and models for Users, their thoughts (posts), and reactions to those thoughts (comments). All of the routes and their functionality are demonstrated in the video that is linked below (turn on sound to hear my narration). 
+    This project is a back-end for a social media site.  It utilizes MongoDB/Mongoose to create a database and models. Various controllers and routes allow the data to be added, retrieved, updated, and deleted.  This data includes schemas and models for Users, their thoughts (posts), and reactions to those thoughts (comments). All of the routes and their functionality are demonstrated in Insomnia in the video that is linked below (turn on sound to hear my narration). 
 
 https://youtu.be/OrUoTL_nuFo 
 
